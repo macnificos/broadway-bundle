@@ -1,5 +1,5 @@
 {
-  "name": "broadway/broadway-bundle",
+  "name": "macnificos/broadway-bundle",
   "type": "symfony-bundle",
   "description": "Symfony bundle for broadway/broadway.",
   "keywords": [
@@ -11,7 +11,7 @@
   "license": "MIT",
   "require": {
     "php": ">=7.0",
-    "broadway/broadway": "^2.0",
+    "macnificos/broadway": "^2.0",
     "symfony/console": "^2.3||^3.0||^4.0",
     "symfony/http-kernel": "^2.3||^3.0||^4.0"
   },
