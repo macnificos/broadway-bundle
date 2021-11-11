@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -20,7 +22,7 @@ class RegisterReadModelRepositoryFactoryCompilerPass extends CompilerPass
     public function process(ContainerBuilder $container)
     {
         $serviceParameter = 'broadway.read_model_repository_factory.service_id';
-        if (! $container->hasParameter($serviceParameter)) {
+        if (!$container->hasParameter($serviceParameter)) {
             $container->setAlias(
                 'broadway.read_model.repository_factory',
                 new Alias('broadway.read_model.in_memory.repository_factory', true)

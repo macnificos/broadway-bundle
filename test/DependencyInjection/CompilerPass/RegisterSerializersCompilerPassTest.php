@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSerializersCompilerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
@@ -21,7 +23,7 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new RegisterSerializersCompilerPass());
     }
@@ -29,7 +31,7 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_sets_the_public_serializer_aliases()
+    public function it_sets_the_public_serializer_aliases(): void
     {
         $this->setDefinition('my_serializer', new Definition());
 
@@ -50,11 +52,11 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Serializer with service id "my_serializer" could not be found
      */
-    public function it_throws_when_serializer_has_no_definition()
+    public function it_throws_when_serializer_has_no_definition(): void
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Serializer with service id "my_serializer" could not be found');
         $this->container->setParameter('broadway.serializer.payload.service_id', 'my_serializer');
         $this->container->setParameter('broadway.serializer.readmodel.service_id', 'my_serializer');
         $this->container->setParameter('broadway.serializer.metadata.service_id', 'my_serializer');

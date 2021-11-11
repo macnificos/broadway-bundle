@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterMetadataEnricherSubscriberPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
@@ -22,7 +24,7 @@ class RegisterMetadataEnricherSubscriberPassTest extends AbstractCompilerPassTes
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(
             new RegisterMetadataEnricherSubscriberPass(
@@ -35,7 +37,7 @@ class RegisterMetadataEnricherSubscriberPassTest extends AbstractCompilerPassTes
     /**
      * @test
      */
-    public function it_registers_metadata_enrichers()
+    public function it_registers_metadata_enrichers(): void
     {
         $this->setDefinition(
             'broadway.metadata_enriching_event_stream_decorator',

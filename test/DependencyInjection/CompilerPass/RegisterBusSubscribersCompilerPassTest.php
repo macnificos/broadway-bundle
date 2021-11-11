@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterBusSubscribersCompilerPass;
 use Broadway\EventHandling\EventListener;
@@ -23,7 +25,7 @@ class RegisterBusSubscribersCompilerPassTest extends AbstractCompilerPassTestCas
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(
             new RegisterBusSubscribersCompilerPass(
@@ -37,7 +39,7 @@ class RegisterBusSubscribersCompilerPassTest extends AbstractCompilerPassTestCas
     /**
      * @test
      */
-    public function it_registers_event_bus_subscribers()
+    public function it_registers_event_bus_subscribers(): void
     {
         $this->setDefinition(
             'broadway.event_handling.event_bus',

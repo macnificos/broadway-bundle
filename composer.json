@@ -10,10 +10,10 @@
   ],
   "license": "MIT",
   "require": {
-    "php": ">=7.0",
     "macnificos/broadway": "^2.0",
-    "symfony/console": "^2.3||^3.0||^4.0",
-    "symfony/http-kernel": "^2.3||^3.0||^4.0"
+    "php": ">=7.2",
+    "symfony/console": "^3.4||^4.4|^5.0",
+    "symfony/http-kernel": "^3.4||^4.4|^5.0"
   },
   "authors": [
     {
@@ -42,13 +42,15 @@
     }
   ],
   "require-dev": {
-    "symfony/framework-bundle": "^2.3||^3.0||^4.0",
-    "monolog/monolog": "~1.8",
-    "symfony/proxy-manager-bridge": "^2.3||^3.0||^4.0",
-    "phpunit/phpunit": "^4.8||^5.0",
-    "matthiasnoback/symfony-config-test": "^2.0",
-    "matthiasnoback/symfony-dependency-injection-test": "^1.1",
-    "broadway/broadway-saga": "^0.3"
+    "symfony/framework-bundle": "^3.4||^4.4|^5.0",
+    "monolog/monolog": "~2.0",
+    "symfony/proxy-manager-bridge": "^3.4||^4.4|^5.0",
+    "phpunit/phpunit": "^9.5",
+    "matthiasnoback/symfony-config-test": "^4.0",
+    "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+    "broadway/broadway-saga": "^1.0",
+    "broadway/coding-standard": "^1.2",
+    "phpstan/phpstan": "@stable"
   },
   "suggest": {
     "psr/log-implementation": "Implementation for PSR3, LoggerInterface",

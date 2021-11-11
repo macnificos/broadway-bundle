@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,18 +21,17 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new BroadwayExtension(),
         ];
     }
 
-
     /**
      * @test
      */
-    public function it_creates_a_public_alias_to_the_simple_command_bus()
+    public function it_creates_a_public_alias_to_the_simple_command_bus(): void
     {
         $this->load([]);
 
@@ -45,12 +46,12 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_creates_a_public_alias_for_the_logging_command_bus()
+    public function it_creates_a_public_alias_for_the_logging_command_bus(): void
     {
         $this->load([
             'command_handling' => [
                 'logger' => 'my_service',
-            ]
+            ],
         ]);
 
         $this->assertContainerBuilderHasAlias(
@@ -64,12 +65,12 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_creates_a_public_alias_for_the_auditing_logger()
+    public function it_creates_a_public_alias_for_the_auditing_logger(): void
     {
         $this->load([
             'command_handling' => [
                 'logger' => 'my_service',
-            ]
+            ],
         ]);
 
         $this->assertContainerBuilderHasAlias(
@@ -83,13 +84,13 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_can_enable_the_event_dispatching_command_bus_but_not_the_logger()
+    public function it_can_enable_the_event_dispatching_command_bus_but_not_the_logger(): void
     {
         $this->load([
             'command_handling' => [
                 'dispatch_events' => true,
-                'logger'          => 'my_service',
-            ]
+                'logger' => 'my_service',
+            ],
         ]);
 
         $this->assertContainerBuilderHasAlias(

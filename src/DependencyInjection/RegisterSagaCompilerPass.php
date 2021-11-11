@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -27,7 +29,7 @@ class RegisterSagaCompilerPass implements CompilerPassInterface
     public function __construct($multipleSagaManagerService, $tagName)
     {
         $this->multipleSagaManagerService = $multipleSagaManagerService;
-        $this->tagName                    = $tagName;
+        $this->tagName = $tagName;
     }
 
     public function process(ContainerBuilder $container)
@@ -41,16 +43,10 @@ class RegisterSagaCompilerPass implements CompilerPassInterface
         foreach ($container->findTaggedServiceIds($this->tagName) as $serviceId => $tags) {
             foreach ($tags as $attributes) {
                 if (!isset($attributes['type'])) {
-                    throw new \InvalidArgumentException(
-                        sprintf(
-                            'Tag "%s" of service "%s" should have a "type" attribute, indicating the type of saga it represents',
-                            $this->tagName,
-                            $serviceId
-                        )
-                    );
+                    throw new \InvalidArgumentException(sprintf('Tag "%s" of service "%s" should have a "type" attribute, indicating the type of saga it represents', $this->tagName, $serviceId));
                 }
 
-                $type         = $attributes['type'];
+                $type = $attributes['type'];
                 $sagas[$type] = new Reference($serviceId);
             }
         }

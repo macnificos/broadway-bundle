@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventListenerCompilerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
@@ -22,7 +24,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(
             new RegisterEventListenerCompilerPass(
@@ -35,7 +37,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_registers_event_listeners()
+    public function it_registers_event_listeners(): void
     {
         $this->setDefinition(
             'broadway.event_dispatcher',
@@ -44,14 +46,14 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
 
         $eventListener1 = new Definition();
         $eventListener1->addTag('broadway.event_listener', [
-            'event'  => 'my_event',
+            'event' => 'my_event',
             'method' => 'handleMyEvent',
         ]);
         $this->setDefinition('event_listener_1', $eventListener1);
 
         $eventListener2 = new Definition();
         $eventListener2->addTag('broadway.event_listener', [
-            'event'  => 'my_event',
+            'event' => 'my_event',
             'method' => 'handleMyEvent',
         ]);
         $this->setDefinition('event_listener_2', $eventListener2);
@@ -66,7 +68,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
                 [
                     new Reference('event_listener_1'),
                     'handleMyEvent',
-                ]
+                ],
             ]
         );
 
@@ -78,19 +80,19 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
                 [
                     new Reference('event_listener_2'),
                     'handleMyEvent',
-                ]
+                ],
             ]
         );
     }
 
     /**
      * @test
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Event Listener tag should contain the event and method (<tag name="broadway.event_listener" event="event_name" method="methodToCall" />)
      */
-    public function it_throws_when_event_listeners_has_no_event_or_method()
+    public function it_throws_when_event_listeners_has_no_event_or_method(): void
     {
-        $this->setDefinition( 'broadway.event_dispatcher', new Definition());
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('Event Listener tag should contain the event and method (<tag name="broadway.event_listener" event="event_name" method="methodToCall" />)');
+        $this->setDefinition('broadway.event_dispatcher', new Definition());
 
         $eventListener = new Definition();
         $eventListener->addTag('broadway.event_listener');

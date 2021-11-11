@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,7 +21,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new BroadwayExtension(),
@@ -29,7 +31,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_does_not_register_the_saga_state_manager_service_when_not_configured()
+    public function it_does_not_register_the_saga_state_manager_service_when_not_configured(): void
     {
         $this->load([]);
 
@@ -39,7 +41,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_does_not_register_the_saga_state_repository_service_when_not_configured()
+    public function it_does_not_register_the_saga_state_repository_service_when_not_configured(): void
     {
         $this->load([]);
 
@@ -49,7 +51,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_registers_the_saga_state_repository_service_when_configured()
+    public function it_registers_the_saga_state_repository_service_when_configured(): void
     {
         $this->load([
             'saga' => [

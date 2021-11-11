@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -23,7 +25,7 @@ class CommandMetadataEnricher implements MetadataEnricher
     private $event;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function enrich(Metadata $metadata): Metadata
     {
@@ -33,9 +35,9 @@ class CommandMetadataEnricher implements MetadataEnricher
 
         $data = [
             'console' => [
-                'command'   => get_class($this->event->getCommand()),
-                'arguments' => $this->event->getInput()->__toString()
-            ]
+                'command' => get_class($this->event->getCommand()),
+                'arguments' => $this->event->getInput()->__toString(),
+            ],
         ];
         $newMetadata = new Metadata($data);
 

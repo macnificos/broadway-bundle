@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,7 +21,7 @@ class RegisterSerializersCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        foreach (array('metadata', 'payload', 'readmodel') as $serializer) {
+        foreach (['metadata', 'payload', 'readmodel'] as $serializer) {
             $serviceParameter = sprintf('broadway.serializer.%s.service_id', $serializer);
             if (!$container->hasParameter($serviceParameter)) {
                 continue;
@@ -27,11 +29,8 @@ class RegisterSerializersCompilerPass implements CompilerPassInterface
 
             $id = $container->getParameter($serviceParameter);
 
-            if (! $container->hasDefinition($id)) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Serializer with service id "%s" could not be found',
-                    $id
-                ));
+            if (!$container->hasDefinition($id)) {
+                throw new \InvalidArgumentException(sprintf('Serializer with service id "%s" could not be found', $id));
             }
 
             $container->setAlias(

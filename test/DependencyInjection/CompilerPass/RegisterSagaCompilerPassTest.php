@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the broadway/broadway package.
+ * This file is part of the broadway/broadway-bundle package.
  *
- * (c) Qandidate.com <opensource@qandidate.com>
+ * (c) 2020 Broadway project
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaCompilerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
@@ -22,7 +24,7 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(
             new RegisterSagaCompilerPass(
@@ -35,13 +37,12 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_registers_sagas()
+    public function it_registers_sagas(): void
     {
         $sagaManager = new Definition();
         $sagaManager->addArgument('my_saga_state_repository');
         $sagaManager->addArgument([]);
         $this->setDefinition('broadway.saga.multiple_saga_manager', $sagaManager);
-
 
         $saga1 = new Definition();
         $saga1->addTag('broadway.saga', [
@@ -69,14 +70,13 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Tag "broadway.saga" of service "my_saga_1" should have a "type" attribute, indicating the type of saga it represents
      */
-    public function it_throws_when_registering_sagas_without_type()
+    public function it_throws_when_registering_sagas_without_type(): void
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Tag "broadway.saga" of service "my_saga_1" should have a "type" attribute, indicating the type of saga it represents');
         $sagaManager = new Definition();
         $this->setDefinition('broadway.saga.multiple_saga_manager', $sagaManager);
-
 
         $saga1 = new Definition();
         $saga1->addTag('broadway.saga');
